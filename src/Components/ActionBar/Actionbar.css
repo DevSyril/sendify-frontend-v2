@@ -1,0 +1,60 @@
+.action-bar {
+    background-color: #111;
+    max-width: 40px;
+    min-width: 40px;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.action-bar .logo-div, .action-bar .user-image, .action-bar button {
+    width: 100%;
+    aspect-ratio: 4/4;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+}
+
+.action-bar .logo-div {
+    margin-bottom: 12px;
+}
+
+.controls-action .action-button {
+    margin-top: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.action-bar .user-image {
+    border-radius: 50%;
+    border: 2px solid tomato;
+    cursor: pointer;
+}
+
+.action-bar hr  {
+    background-color: yellow;
+    color: yellow;
+}
+
+.action-bar .logout-button {
+    background-color: lightgreen;
+    border-radius: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.action-bar .settings-button {
+    background-color: magenta;
+    border-radius: 8px;
+}
+
+.action-bar #button-active {
+    background-color: #0097B2;
+    border-radius: 8px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
+}

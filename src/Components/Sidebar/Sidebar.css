@@ -1,0 +1,9 @@
+.sidebar {
+  max-height: 95vh;
+  width: 100%;
+  max-width: 20%;
+  background-color: magenta;
+  border-radius: 8px;
+  margin: 0;
+  padding: 10px;
+}
