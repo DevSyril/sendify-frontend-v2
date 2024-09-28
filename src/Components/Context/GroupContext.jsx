@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { API_URL } from "../../assets/Utils";
+import axios from "axios";
 
 export const GroupContext = createContext(null)
 
@@ -8,13 +10,27 @@ const GroupContextProvider = (props) => {
 
     const [isSelected, setIsSelected] = useState("groups");
 
+    const [currentUser, setCurrentUser] = useState([]);
 
     const contextValue = {
         groupId,
         setGroupId,
         isSelected,
-        setIsSelected
+        setIsSelected,
+        currentUser,
     }
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: API_URL.currentUser,
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        })
+            .then(function (response) {
+                setCurrentUser(() => response.data.data)
+            });
+    }, []);
+
 
     return (
         <GroupContext.Provider value={contextValue}>

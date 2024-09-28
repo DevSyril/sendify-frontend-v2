@@ -22,7 +22,7 @@ export default function ActionBar() {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         })
             .then(function (response) {
-                setData(response.data.data)
+                setData(() => response.data.data)
             });
     }, []);
 

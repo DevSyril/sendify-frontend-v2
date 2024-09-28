@@ -33,7 +33,6 @@ export default function GroupDescription() {
             .then(function (response) {
                 setGroupMember(() => response.data.data)
             });
-        
     }, [groupId]);
 
     return (

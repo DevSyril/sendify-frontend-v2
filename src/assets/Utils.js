@@ -27,4 +27,15 @@ export const API_URL = {
     groupMembers: 'http://localhost:8000/api/v1.0.0/show-group-members/',
 
     usersList: 'http://localhost:8000/api/v1.0.0/list-users',
+
+    searchGroup: 'http://localhost:8000/api/v1.0.0/search-group/',
+
+    createGroup: 'http://localhost:8000/api/v1.0.0/create-group',
+
+    sendFile: 'http://localhost:8000/api/v1.0.0/upload-file',
+
+    groupFiles: 'http://localhost:8000/api/v1.0.0/group-files/',
+
+    groupsFilesUrl: 'http://localhost:8000/db/groupDatas/files/',
+    
 } 

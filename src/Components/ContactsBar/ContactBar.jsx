@@ -9,7 +9,9 @@ import { GroupContext } from '../Context/GroupContext';
 export default function ContactBar() {
 
     const [data, setData] = useState([])
+    const [searchData, setSearchData] = useState([])
     const { groupId, setGroupId } = useContext(GroupContext)
+    const [toSearch, setToSearch] = useState("");
 
     useEffect(() => {
         axios({
@@ -30,13 +32,27 @@ export default function ContactBar() {
                 <FontAwesomeIcon icon={faContactCard} size='sm' />
             </div>
             <form className='search-bar'>
-                <input type='text' placeholder='Rechercher ...' />
+                <input type='text' placeholder='Rechercher ...' onChange={(e) => {
+                    setToSearch(() => e.target.value)
+                    setSearchData(() => data.filter(item => item.username.toLowerCase().includes(e.target.value.toLowerCase())))
+                    console.log(searchData)
+                }}/>
                 <FontAwesomeIcon icon={faSearch} className='search-icon' />
             </form>
             <hr />
             <div className='discussions flex flex-column'>
-                {data.map((item, index) => (
-                    <div>
+                {toSearch == "" ? data.map((item, index) => (
+                    <div key={index}>
+                        <div className='group flex contact'>
+                            <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
+                            <div className='group-text flex flex-column'>
+                                <span className='group-title'>{item.username}</span>
+                                <p className='p-0-m-0'>{item.email}</p>
+                            </div>
+                        </div>
+                    </div>
+                )): searchData.map((item, index) => (
+                    <div key={index}>
                         <div className='group flex contact'>
                             <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
                             <div className='group-text flex flex-column'>

@@ -32,3 +32,15 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.w-100 {
+  width: 100% !important;
+}
+
+.flex-center {
+  align-items: center;
+}
+
+.space-btw {
+  justify-content: space-between;
+}

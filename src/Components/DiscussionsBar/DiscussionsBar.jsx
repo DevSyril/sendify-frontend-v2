@@ -14,7 +14,11 @@ export default function DiscussionsBar() {
 
     const { groupId, setGroupId } = useContext(GroupContext)
 
+    const [toSearch, setToSearch] = useState("");
+
     const [data, setData] = useState([])
+
+    const [searchData, setSearchData] = useState([])
 
     useEffect(() => {
         axios({
@@ -23,11 +27,9 @@ export default function DiscussionsBar() {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         })
             .then(function (response) {
-                setData(response.data.data)
+                setData(() => response.data.data)
             });
-
-        console.log(groupId);
-    }, [groupId]);
+    }, []);
 
     return (
         <div className='discussions-bar'>
@@ -35,13 +37,28 @@ export default function DiscussionsBar() {
                 Discussions
                 <FontAwesomeIcon icon={faDiscourse} size='sm' />
             </div>
-            <form className='search-bar'>
-                <input type='text' placeholder='Rechercher ...' />
+            <form className='search-bar' onSubmit={(e) => e.preventDefault()}>
+                <input type='text' placeholder='Rechercher ...' onChange={(e) => {
+                    setToSearch(() => e.target.value)
+                    setSearchData(() => data.filter(item => item.name.toLowerCase().includes(e.target.value.toLowerCase())))
+                }} />
                 <FontAwesomeIcon icon={faSearch} className='search-icon' />
             </form>
             <hr />
             <div className='discussions flex flex-column'>
-                {data.map((item, index) => (
+                {toSearch === "" ? data.map((item, index) => (
+                    <div key={index} onClick={() => setGroupId(() => item.id)}>
+                        <div className='group flex'
+                            id={groupSelected === item.name ? 'group-active' : ''} onClick={() => setGroupSelected(() => item.name)}
+                        >
+                            <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
+                            <div className='group-text flex flex-column'>
+                                <span className='group-title'>{item.name}</span>
+                                <p className='p-0-m-0'>{item.description.length > 10 ? item.description.substring(0, 20) + "..." : item.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                )) : searchData.map((item, index) => (
                     <div key={index} onClick={() => setGroupId(() => item.id)}>
                         <div className='group flex'
                             id={groupSelected === item.name ? 'group-active' : ''} onClick={() => setGroupSelected(() => item.name)}

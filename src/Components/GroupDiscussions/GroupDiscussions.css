@@ -1,6 +1,137 @@
 .group-discussions {
-    max-height: 95vh;
-    width: 100%;
-    border-radius: 8px;
-    background-color: blue;
+  max-height: 95vh;
+  width: 100%;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: grey;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.group-discussions .group-header {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.group-discussions .group-header .group-profile {
+  max-width: 50px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  border: 3px solid tomato;
+}
+
+.group-discussions .group-header .group-profile-zone {
+  align-items: center;
+  gap: 10px;
+}
+
+.group-discussions .group-header .group-options {
+  gap: 20px;
+  margin-right: 10px;
+  align-items: center;
+}
+
+.group-discussions .message-sender {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+  gap: 10px;
+  max-height: 40px;
+}
+
+.group-discussions .message-sender input[type="text"] {
+  width: 100%;
+  height: 95%;
+  border: 1px solid cyan;
+  border-radius: 8px;
+  outline-color: aqua;
+  padding: 0 10px;
+}
+
+.group-discussions .message-sender button[type="submit"] {
+  background-color: cyan;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  height: 100%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+}
+
+.group-discussions .message-sender img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  box-sizing: border-box;
+  border-radius: 20%;
+  cursor: pointer;
+}
+
+.group-discussions .message-sender .file {
+  height: 100%;
+  aspect-ratio: 1/1;
+  box-sizing: border-box;
+  border-radius: 20%;
+  border: 2px solid white;
+}
+
+.group-discussions .preview {
+  display: flex;
+  align-items: start;
+  box-sizing: border-box;
+  width: 30%;
+  background-color: white;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.group-discussions .preview .uploaded-file {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.group-discussions .discussions-items {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  padding: 0 10px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  gap: 10px;
+}
+
+.group-discussions .discussions-items .discussion-item .file {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.group-discussions .discussions-items .discussion-item {
+  background-color: white;
+  display: flex;
+  align-items: start;
+  box-sizing: border-box;
+  width: 30%;
+  padding: 2px;
+  border-radius: 8px;
+}
+
+.discussion-item.user {
+  place-self: end !important;
 }
