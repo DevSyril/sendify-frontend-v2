@@ -28,6 +28,8 @@ export const API_URL = {
 
     groupMembers: 'http://localhost:8000/api/v1.0.0/show-group-members/',
 
+    downloadFiles: 'http://localhost:8000/api/v1.0.0/files-download/',
+
     usersList: 'http://localhost:8000/api/v1.0.0/list-users',
 
     updateUser: 'http://localhost:8000/api/v1.0.0/edit-profile',

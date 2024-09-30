@@ -1,0 +1,21 @@
+.loginForm .title-zone{
+    color: #111;
+    text-align: center;
+}
+
+.emailChecker {
+    max-width: 500px;
+    margin: auto;
+    height: 100%;
+    display: flex;
+}
+
+.loginForm {
+    display: flex;
+    justify-content: center;
+    place-self: center;
+}
+
+.emailChecker .loginForm {
+    gap: 5px;
+}

@@ -1,0 +1,13 @@
+.login-button {
+    width: 100%;
+    box-sizing: border-box;
+    background-color:  #0097B2;
+    height: 40px;
+    border: 1px solid transparent;
+    font-family: nunito;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    color: #fff;
+}

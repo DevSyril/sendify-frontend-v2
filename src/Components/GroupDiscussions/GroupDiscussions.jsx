@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './GroupDiscussions.css'
 import { images } from '../../assets/assets'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { sendFileResponse } from '../../Http/HttpRequest/responseAnalyser'
 import { API_URL } from '../../assets/Utils'
 import axios from 'axios'
+import fileDownload from 'js-file-download'
 
 export default function GroupDiscussions() {
 
@@ -24,6 +25,8 @@ export default function GroupDiscussions() {
   const [group, setGroup] = useState([]);
 
   const [fileSent, setFileSent] = useState(false);
+
+  const toTop = useRef(null)
 
   useEffect(() => {
     axios({
@@ -56,6 +59,12 @@ export default function GroupDiscussions() {
 
   }, [groupId, fileSent]);
 
+  useEffect(() => {
+    if (toTop.current) {
+      toTop.current.scrollTop = toTop.current.scrollHeight;
+    }
+  }, [groupFiles, fileSent])
+
 
   const handleFileUpload = async (e) => {
     e.preventDefault()
@@ -85,9 +94,21 @@ export default function GroupDiscussions() {
           toast.error(response.message)
         }
       }
-      
     }
 
+  }
+
+
+  const handleDownload = (id, filename) => {
+    axios({
+      method: 'get',
+      url: `${API_URL.downloadFiles}${id}`,
+      responseType : 'blob',
+      headers: {Accept : 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    })
+    .then((res) => {
+      fileDownload(res.data, filename)
+    })
   }
 
   return (
@@ -135,7 +156,7 @@ export default function GroupDiscussions() {
             <div className='flex flex-column w-100'>
               <h4 className='p-0-m-0'>{item.name}</h4>
               <p className='p-0-m-0'>Envoyé par {currentUser[0].username == item.sender ? "Moi-même" : item.sender} </p>
-              <div className='p-0-m-0 flex space-btw w-100'> {item.upload_date} <FontAwesomeIcon icon={faDownload} size='xl'/> </div>
+              <div className='p-0-m-0 flex space-btw w-100'> {item.upload_date} <FontAwesomeIcon icon={faDownload} onClick={() => handleDownload(item.id, item.name)} size='xl'/> </div>
             </div>
           </div>
         ))}

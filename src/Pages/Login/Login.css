@@ -1,0 +1,99 @@
+.login {
+    max-width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    position: relative;
+}
+
+.input-zone {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 13px;
+  left: 10px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffff;
+  padding: 10px 20px;
+  justify-content: space-around;
+  border-radius: 15px;
+  gap: 20px;
+  width: 100%;
+}
+
+.title-logo {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.title-logo h1 {
+  font-size: 16px;
+  color: #7ed957;
+  font-weight: 800;
+  font-style: italic;
+  margin: 0 !important;
+  margin-top: 8px !important;
+}
+
+.title {
+  text-align: center;
+  color: #111;
+  font-size: 16px !important;
+  font-weight: 800;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+}
+
+.link-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.link-container .password-reset {
+    color: lightcoral;
+    font-weight: 800;
+}
+
+.link-container .registration-link {
+    color: darkgreen;
+    font-weight: 800;
+}
+
+@media (max-width: 850px) {
+  .title {
+    margin: 0;
+    font-size: 24px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: white;
+    padding: 10px 0;
+  }
+
+  .login-img {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .link {
+    font-size: 12px;
+  }
+}
