@@ -1,0 +1,53 @@
+.profile .profile-header .profile-photo {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    padding: 3px;
+    border: 5px solid lightgreen;
+}
+
+.profile .profile-form {
+    gap: 10px;
+}
+
+.profile .profile-form input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+    padding: 0 10px;
+    font-family: nunito;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+
+.profile .profile-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-family: nunito;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.profile {
+    padding: 10px;
+    background-color: white;
+    border-radius: 6px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.profile-header {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.profile-header label {
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+    cursor: pointer;
+}

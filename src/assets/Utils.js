@@ -24,9 +24,13 @@ export const API_URL = {
     
     uniqueGroup: 'http://localhost:8000/api/v1.0.0/show-group/',
 
+    addMember: 'http://localhost:8000/api/v1.0.0/add-member',
+
     groupMembers: 'http://localhost:8000/api/v1.0.0/show-group-members/',
 
     usersList: 'http://localhost:8000/api/v1.0.0/list-users',
+
+    updateUser: 'http://localhost:8000/api/v1.0.0/edit-profile',
 
     searchGroup: 'http://localhost:8000/api/v1.0.0/search-group/',
 

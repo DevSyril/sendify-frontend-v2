@@ -60,3 +60,22 @@ export function sendFileResponse(response) {
     }
     return null;
 }
+
+export function updateUserResponse(response) {
+
+    if (response.message === "Echec de validation.") {
+
+        if (response.data.password != null)
+            return response.data.password[0];
+
+        if (response.data.passwordConfirm != null)
+            return response.data.passwordConfirm[0];
+
+        if (response.data.phoneNumber != null)
+            return response.data.phoneNumber[0];
+
+        if (response.data.profilePhoto != null)
+            return response.data.profilePhoto[0];
+    }
+    return null;
+}

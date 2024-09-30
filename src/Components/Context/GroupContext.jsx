@@ -7,6 +7,8 @@ export const GroupContext = createContext(null)
 const GroupContextProvider = (props) => {
 
     const [groupId, setGroupId] = useState("");
+    
+    const [addMember, setAddMember] = useState(false);
 
     const [isSelected, setIsSelected] = useState("groups");
 
@@ -18,6 +20,8 @@ const GroupContextProvider = (props) => {
         isSelected,
         setIsSelected,
         currentUser,
+        addMember,
+        setAddMember,
     }
 
     useEffect(() => {

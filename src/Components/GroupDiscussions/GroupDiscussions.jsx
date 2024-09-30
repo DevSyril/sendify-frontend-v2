@@ -23,6 +23,8 @@ export default function GroupDiscussions() {
 
   const [group, setGroup] = useState([]);
 
+  const [fileSent, setFileSent] = useState(false);
+
   useEffect(() => {
     axios({
       method: 'get',
@@ -52,9 +54,7 @@ export default function GroupDiscussions() {
         console.log(response.data.data);
       });
 
-    console.log();
-
-  }, [groupId]);
+  }, [groupId, fileSent]);
 
 
   const handleFileUpload = async (e) => {
@@ -64,6 +64,7 @@ export default function GroupDiscussions() {
       toast.error("Le fichier est trop volumineux (max 10 Mo)")
 
     } else {
+      console.log(file.type);
 
       const formData = new FormData()
       formData.set('group_id', groupId)
@@ -73,15 +74,18 @@ export default function GroupDiscussions() {
 
       if (response.success) {
         toast.success("Fichier envoyé...")
-        console.log(file.type);
         setFile(false)
+        setFileSent(true)
+
       } else {
+        setFile(false)
         if (sendFileResponse(response) != null) {
           toast.error(sendFileResponse(response))
         } else {
           toast.error(response.message)
         }
       }
+      
     }
 
   }
@@ -135,11 +139,9 @@ export default function GroupDiscussions() {
             </div>
           </div>
         ))}
-      </div>
-
       {file && <div className='preview'>
         {file.type.startsWith('image/') ?
-          <div><img src={URL.createObjectURL(file)} alt='Preview' className='uploaded-file' /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
+          <div><img src={URL.createObjectURL(file)} alt='Preview' className='uploaded-file' /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p></div>
           : <></>
         }
         {file.type.startsWith('video/') ?
@@ -151,10 +153,12 @@ export default function GroupDiscussions() {
           : <></>
         }
         {file.type.startsWith('application') && file.type != "application/pdf" ?
-          <div><object data={URL.createObjectURL(file)} alt='Preview' type="application/pdf" className='uploaded-file' controls></object><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
+          <div><img src={images.filePlaceholder} alt='Preview' className='uploaded-file' controls /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
           : <></>
         }
       </div>}
+      </div>
+
 
       <form className='message-sender' onSubmit={handleFileUpload}>
         <div className='file'>

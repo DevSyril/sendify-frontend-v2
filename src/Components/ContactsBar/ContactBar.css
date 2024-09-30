@@ -1,3 +1,13 @@
-.discussions-bar .discussions .group.contact {
-    cursor: default ;
+.group.contact {
+    cursor: default;
+}
+
+.add-member-btn {
+    border: none;
+    background-color: skyblue;
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-family: nunito;
+    margin-top: 6px;
+    cursor: pointer;
 }

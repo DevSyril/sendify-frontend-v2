@@ -4,6 +4,7 @@ import DiscussionsBar from '../DiscussionsBar/DiscussionsBar'
 import ContactBar from '../ContactsBar/ContactBar'
 import CreateGroup from '../CreateGroup/CreateGroup'
 import { GroupContext } from '../Context/GroupContext'
+import Profile from '../Profile/Profile'
 
 export default function Sidebar() {
 
@@ -14,6 +15,7 @@ export default function Sidebar() {
             {isSelected === "groups" ? <DiscussionsBar /> : <></> }
             {isSelected === "contacts" ? <ContactBar /> : <></> }
             {isSelected === "addGroup" ? <CreateGroup /> : <></> }
+            {isSelected === "profile" ? <Profile /> : <></> }
         </div>
     )
 }

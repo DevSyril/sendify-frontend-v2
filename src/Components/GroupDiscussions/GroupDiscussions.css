@@ -112,6 +112,7 @@
   overflow-y: scroll;
   scrollbar-width: none;
   gap: 10px;
+  justify-content: baseline;
 }
 
 .group-discussions .discussions-items .discussion-item .file {

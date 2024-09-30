@@ -12,7 +12,7 @@ export default function GroupDescription() {
     const [data, setData] = useState([])
     const [groupMember, setGroupMember] = useState([])
     const { groupId, setGroupId } = useContext(GroupContext)
-    const { isSelected, setIsSelected } = useContext(GroupContext)
+    const { isSelected, setIsSelected, addMember, setAddMember } = useContext(GroupContext)
 
 
     useEffect(() => {
@@ -82,7 +82,10 @@ export default function GroupDescription() {
                 ))}
             </div>
             <div className='group-descripiton-actions'>
-                <button className='invite-member-button'>
+                <button className='invite-member-button' onClick={() => {
+                    setAddMember(() => true);
+                    setIsSelected(() => 'contacts');
+                }}>
                     <FontAwesomeIcon icon={faUserPlus} />
                     Ajouter un membre
                 </button>
