@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faGear, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons'
 import { GroupContext } from '../Context/GroupContext'
-import { sendFile } from '../../Http/HttpRequest/axiosClient'
+import { addGroupMember, sendFile } from '../../Http/HttpRequest/axiosClient'
 import { toast } from 'react-toastify'
 import { sendFileResponse } from '../../Http/HttpRequest/responseAnalyser'
 import { API_URL } from '../../assets/Utils'
@@ -16,7 +16,7 @@ export default function GroupDiscussions() {
 
   const [file, setFile] = useState(false)
 
-  const { groupId, setGroupId, currentUser } = useContext(GroupContext)
+  const { groupId, setGroupId, currentUser, showGroup, setShowGroup, setIsSelected } = useContext(GroupContext)
 
   const [groupMembers, setGroupMembers] = useState([]);
 
@@ -24,9 +24,14 @@ export default function GroupDiscussions() {
 
   const [group, setGroup] = useState([]);
 
+  const [email, setEmail] = useState("");
+
   const [fileSent, setFileSent] = useState(false);
 
+  const [addMember, setAddMember] = useState(false)
+
   const toTop = useRef(null)
+
 
   useEffect(() => {
     axios({
@@ -59,11 +64,15 @@ export default function GroupDiscussions() {
 
   }, [groupId, fileSent]);
 
-  useEffect(() => {
-    if (toTop.current) {
-      toTop.current.scrollTop = toTop.current.scrollHeight;
+
+
+  const handleGroupModify = () => {
+    if (currentUser[0].id === showGroup[0].owner_id) {
+      setIsSelected(() => 'editGroup')
+    } else {
+      toast.error("Vous n'êtes pas autorisé à éffectuer une modification")
     }
-  }, [groupFiles, fileSent])
+  }
 
 
   const handleFileUpload = async (e) => {
@@ -80,6 +89,8 @@ export default function GroupDiscussions() {
       formData.set('file', file)
 
       const response = await sendFile(formData)
+      console.log(response);
+
 
       if (response.success) {
         toast.success("Fichier envoyé...")
@@ -103,13 +114,31 @@ export default function GroupDiscussions() {
     axios({
       method: 'get',
       url: `${API_URL.downloadFiles}${id}`,
-      responseType : 'blob',
-      headers: {Accept : 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+      responseType: 'blob',
+      headers: { Accept: 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     })
-    .then((res) => {
-      fileDownload(res.data, filename)
-    })
+      .then((res) => {
+        fileDownload(res.data, filename)
+      })
   }
+
+
+  const handleAddMember = async () => {
+    const formData = new FormData();
+    formData.set('member_email', email);
+    formData.set('group_id', groupId);
+
+    const response = await addGroupMember(formData)
+
+    if (response.success) {
+      toast.success("Invitation envoyée avec succès")
+      setAddMember(() => false)
+    } else {
+      toast.error(response.message)
+    }
+  }
+
+
 
   return (
     <div className='group-discussions'>
@@ -121,15 +150,15 @@ export default function GroupDiscussions() {
               <h2 className='p-0-m-0'>{item.name}</h2>
               <p className='p-0-m-0'>
                 {groupMembers.map((member, index) => (
-                  <span>{member.username + ','}</span>
+                  <span>{member.username + ' , '}</span>
                 ))}
               </p>
             </div>
           </div>
         ))}
         <div className='group-options flex'>
-          <FontAwesomeIcon icon={faUserPlus} size='xl' />
-          <FontAwesomeIcon icon={faGear} size='xl' />
+          <FontAwesomeIcon icon={faUserPlus} size='xl' className='group-settings' onClick={() => setAddMember(() => true)} />
+          <FontAwesomeIcon icon={faGear} size='xl' onClick={handleGroupModify} className='group-settings' />
         </div>
       </div>
 
@@ -137,47 +166,47 @@ export default function GroupDiscussions() {
       <div className='discussions-items flex flex-column'>
         {groupFiles.map((item, index) => (
           <div className={`discussion-item flex flex-column ${currentUser[0].username == item.sender ? 'user' : ''}`} key={index}>
-            {item.name.endsWith('jpg') || item.name.endsWith('png') || item.name.endsWith('jpeg')?
+            {item.name.endsWith('jpg') || item.name.endsWith('png') || item.name.endsWith('jpeg') ?
               <img src={`${API_URL.groupsFilesUrl}${item.name}`} alt='Preview' className='file' />
               : <></>
             }
-            {item.name.endsWith('mp4')?
+            {item.name.endsWith('mp4') ?
               <video src={`${API_URL.groupsFilesUrl}${item.name}`} alt='Preview' className='file'></video>
               : <></>
             }
-            {item.name.endsWith('pdf')?
-              <img src={images.pdfPlaceholder}  alt='Preview' className='file' />
+            {item.name.endsWith('pdf') ?
+              <img src={images.pdfPlaceholder} alt='Preview' className='file' />
               : <></>
             }
-            {item.name.endsWith('docx')?
-              <img src={images.docxPlaceholder}  alt='Preview' className='file' />
+            {item.name.endsWith('docx') ?
+              <img src={images.docxPlaceholder} alt='Preview' className='file' />
               : <></>
             }
             <div className='flex flex-column w-100'>
-              <h4 className='p-0-m-0'>{item.name}</h4>
+              <h4 className='p-0-m-0 files-name'>{item.name.length > 24 ? item.name.substring(0, 24) + "..." : item.name}</h4>
               <p className='p-0-m-0'>Envoyé par {currentUser[0].username == item.sender ? "Moi-même" : item.sender} </p>
-              <div className='p-0-m-0 flex space-btw w-100'> {item.upload_date} <FontAwesomeIcon icon={faDownload} onClick={() => handleDownload(item.id, item.name)} size='xl'/> </div>
+              <div className='p-0-m-0 flex space-btw w-100'> {item.upload_date} <FontAwesomeIcon className='download-action' icon={faDownload} onClick={() => handleDownload(item.id, item.name)} size='xl' /> </div>
             </div>
           </div>
         ))}
-      {file && <div className='preview'>
-        {file.type.startsWith('image/') ?
-          <div><img src={URL.createObjectURL(file)} alt='Preview' className='uploaded-file' /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p></div>
-          : <></>
-        }
-        {file.type.startsWith('video/') ?
-          <div><video src={URL.createObjectURL(file)} alt='Preview' className='uploaded-file' controls></video><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
-          : <></>
-        }
-        {file.type.startsWith('application/pdf') ?
-          <div><object data={URL.createObjectURL(file)} alt='Preview' type="application/pdf" className='uploaded-file' controls></object><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
-          : <></>
-        }
-        {file.type.startsWith('application') && file.type != "application/pdf" ?
-          <div><img src={images.filePlaceholder} alt='Preview' className='uploaded-file' controls /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
-          : <></>
-        }
-      </div>}
+        {file && <div className='preview'>
+          {file.type.startsWith('image/') ?
+            <div><img src={URL.createObjectURL(file)} alt='Preview' className='uploaded-file' /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p></div>
+            : <></>
+          }
+          {file.type.startsWith('video/') ?
+            <div><video src={URL.createObjectURL(file)} alt='Preview' className='uploaded-file' controls></video><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
+            : <></>
+          }
+          {file.type.startsWith('application/pdf') ?
+            <div><object data={URL.createObjectURL(file)} alt='Preview' type="application/pdf" className='uploaded-file' controls></object><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
+            : <></>
+          }
+          {file.type.startsWith('application') && file.type != "application/pdf" ?
+            <div><img src={images.filePlaceholder} alt='Preview' className='uploaded-file' controls /><p className='p-0-m-0'>{file.name}</p><p className='p-0-m-0'>Taille : {file.size} ko</p> </div>
+            : <></>
+          }
+        </div>}
       </div>
 
 
@@ -195,6 +224,15 @@ export default function GroupDiscussions() {
           <FontAwesomeIcon icon={faTelegramPlane} size='2x' color='blue' />
         </button>
       </form>
+
+      {addMember &&
+        <div className='add-member flex flex-column'>
+          <input type='email' placeholder='Email du nouveau membre' onChange={(e) => setEmail(e.target.value)} />
+          <div className='flex'>
+            <button onClick={handleAddMember}>Ajouter</button>
+            <button onClick={() => setAddMember(() => false)}>Annuler</button>
+          </div>
+        </div>}
     </div>
   )
 }

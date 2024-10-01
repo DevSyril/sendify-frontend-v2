@@ -6,6 +6,7 @@ import GroupDiscussions from './Components/GroupDiscussions/GroupDiscussions'
 import Sidebar from './Components/Sidebar/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import MainWrapper from './Components/MainWrapper/MainWrapper'
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
     <ToastContainer />
       <ActionBar />
       <Sidebar />
-      <GroupDiscussions />
+      <MainWrapper />
       <GroupDescription />
     </div>
   )

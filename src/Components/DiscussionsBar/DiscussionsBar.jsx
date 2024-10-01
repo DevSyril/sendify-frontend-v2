@@ -42,7 +42,7 @@ export default function DiscussionsBar() {
                     setToSearch(() => e.target.value)
                     setSearchData(() => data.filter(item => item.name.toLowerCase().includes(e.target.value.toLowerCase())))
                 }} />
-                <FontAwesomeIcon icon={faSearch} className='search-icon' />
+                <FontAwesomeIcon icon={faSearch} color='black' className='search-icon' />
             </form>
             <hr />
             <div className='discussions flex flex-column'>

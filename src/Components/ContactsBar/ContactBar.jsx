@@ -53,7 +53,7 @@ export default function ContactBar() {
                     setSearchData(() => data.filter(item => item.username.toLowerCase().includes(e.target.value.toLowerCase())))
                     console.log(searchData)
                 }} />
-                <FontAwesomeIcon icon={faSearch} className='search-icon' />
+                <FontAwesomeIcon icon={faSearch} color='black' className='search-icon' />
             </form>
             <hr />
             <div className='discussions flex flex-column'>
@@ -61,7 +61,7 @@ export default function ContactBar() {
                     <div key={index}>
                         <div className=''>
                             <div className='group flex contact'>
-                                <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
+                                <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
                                 <div className='group-text flex flex-column'>
                                     <span className='group-title'>{item.username}</span>
                                     <p className='p-0-m-0'>{item.email}</p>
@@ -73,7 +73,7 @@ export default function ContactBar() {
                 )) : searchData.map((item, index) => (
                     <div key={index}>
                         <div className='group flex contact'>
-                            <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
+                            <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
                             <div className='group-text flex flex-column'>
                                 <span className='group-title'>{item.username}</span>
                                 <p className='p-0-m-0'>{item.email}</p>

@@ -8,6 +8,8 @@ body {
   min-height: 100vh;
   font-family: nunito;
   font-size: 14px;
+  background-color: #121212;
+  color: #FFFF !important;
 }
 
 #root {
@@ -18,6 +20,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #121212;
 }
 
 .flex {
@@ -43,4 +46,13 @@ body {
 
 .space-btw {
   justify-content: space-between;
+}
+
+.Toastify__toast-body div {
+  font-family: nunito !important;
+  font-size: 12px !important;
+}
+
+.justify-content-center {
+  justify-content: center;
 }

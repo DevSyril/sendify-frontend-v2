@@ -50,7 +50,7 @@ export async function groupCreation(formData) {
 export async function sendFile(formData) {
     
     try {
-        const response = await axios.post(API_URL.sendFile, formData, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }});
+        const response = await axios.post(API_URL.sendFile, formData, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }});        
         return response.data;
     } catch (error) {
         console.log(error.message);
@@ -71,6 +71,16 @@ export async function updateUser(formData) {
     
     try {
         const response = await axios.post(API_URL.updateUser, formData, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }});
+        return response.data;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+export async function updateGroup(formData, groupId) {
+    
+    try {
+        const response = await axios.post(`${API_URL.updateGroup}${groupId}`, formData, {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }});
         return response.data;
     } catch (error) {
         console.log(error.message);

@@ -40,8 +40,6 @@ export default function Profile() {
         if (image)
             formData.set('profilePhoto', image)
 
-        console.log(formData.get('phoneNumber'));
-
         const response =  await updateUser(formData)
 
         if (response.success) {

@@ -24,6 +24,8 @@ export const API_URL = {
     
     uniqueGroup: 'http://localhost:8000/api/v1.0.0/show-group/',
 
+    deleteGroup: 'http://localhost:8000/api/v1.0.0/delete-group',
+
     addMember: 'http://localhost:8000/api/v1.0.0/add-member',
 
     groupMembers: 'http://localhost:8000/api/v1.0.0/show-group-members/',
@@ -34,6 +36,8 @@ export const API_URL = {
 
     updateUser: 'http://localhost:8000/api/v1.0.0/edit-profile',
 
+    updateGroup: 'http://localhost:8000/api/v1.0.0/update-group/',
+
     searchGroup: 'http://localhost:8000/api/v1.0.0/search-group/',
 
     createGroup: 'http://localhost:8000/api/v1.0.0/create-group',
@@ -43,5 +47,7 @@ export const API_URL = {
     groupFiles: 'http://localhost:8000/api/v1.0.0/group-files/',
 
     groupsFilesUrl: 'http://localhost:8000/db/groupDatas/files/',
+
+    groupImage: 'http://localhost:8000/db/groupDatas/profileImages/',
     
-} 
+}

@@ -1,0 +1,6 @@
+.profile textarea {
+    resize: none;
+    font-family: nunito;
+    padding: 10px;
+    outline-color: aqua;
+}

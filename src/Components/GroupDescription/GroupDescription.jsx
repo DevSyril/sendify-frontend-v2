@@ -6,13 +6,16 @@ import { faRemove, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import { API_URL } from '../../assets/Utils'
 import { GroupContext } from '../Context/GroupContext'
+import { toast } from 'react-toastify'
 
 export default function GroupDescription() {
 
     const [data, setData] = useState([])
     const [groupMember, setGroupMember] = useState([])
     const { groupId, setGroupId } = useContext(GroupContext)
-    const { isSelected, setIsSelected, addMember, setAddMember } = useContext(GroupContext)
+    const [deleteAction, setDeleteAction] = useState(false)
+    const { isSelected, setIsSelected, addMember, setAddMember, currentUser, showGroup, setShowGroup } = useContext(GroupContext)
+
 
 
     useEffect(() => {
@@ -23,6 +26,7 @@ export default function GroupDescription() {
         })
             .then(function (response) {
                 setData(() => response.data.data)
+                setShowGroup(() => response.data.data)
             });
 
         axios({
@@ -35,8 +39,28 @@ export default function GroupDescription() {
             });
     }, [groupId]);
 
+
+    const handleDeleteGroup = () => {
+        axios({
+            method: 'delete',
+            url: `${API_URL.deleteGroup}/${groupId}`,
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        })
+            .then(function (response) {
+                setGroupId("")
+                toast.success(response.data.message)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3000);
+            })
+            .catch(function (error) {
+                toast.error(error.message)
+                setDeleteAction(() => false)
+            });
+    }
+
     return (
-        <div className='group-description flex flex-column' id={groupId !== "" && isSelected ==='groups' ? 'group-description' : 'hide'}>
+        <div className='group-description flex flex-column' id={groupId !== "" && isSelected === 'groups' ? 'group-description' : 'hide'}>
             {data.map((item, index) => (
                 <div key={index}>
                     <div className='group-description-head flex flex-column'>
@@ -48,19 +72,19 @@ export default function GroupDescription() {
                     </div>
                     <div className='group-infos flex flex-column'>
                         <div className='info flex flex-column'>
-                            <span className='info-title title'>Titre du groupe</span>
-                            <div className='separator'></div>
+                            {/* <span className='info-title title'>Titre du groupe</span> */}
                             <p className='info-title p-0-m-0'>{item.name}</p>
+                            <div className='separator'></div>
                         </div>
                         <div className='info flex flex-column'>
-                            <span className='info-title title'>Description du groupe</span>
-                            <div className='separator'></div>
+                            {/* <span className='info-title title'>Description du groupe</span> */}
                             <p className='info-title p-0-m-0'>{item.description} </p>
+                            <div className='separator'></div>
                         </div>
                         <div className='info flex flex-column'>
-                            <span className='info-title title'>Créé le </span>
-                            <div className='separator'></div>
+                            {/* <span className='info-title title'>Créé le </span> */}
                             <p className='info-title p-0-m-0'> {item.creationDate} </p>
+                            <div className='separator'></div>
                         </div>
                     </div>
                     <br />
@@ -87,13 +111,25 @@ export default function GroupDescription() {
                     setIsSelected(() => 'contacts');
                 }}>
                     <FontAwesomeIcon icon={faUserPlus} />
-                    Ajouter un membre
+                    Ajouter un contact
                 </button>
-                <button className='exit-group-button'>
+                <button className='exit-group-button' onClick={() => setDeleteAction(() => true)} >
                     <FontAwesomeIcon icon={faRemove} />
                     Quitter le groupe
                 </button>
             </div>
+
+            {deleteAction && (
+                <div className='delete-group-modal'>
+                    <div className='modal-content'>
+                        <p>Vous êtes sûr de vouloir supprimer ce groupe?</p>
+                        <div className='flex justify-content-center'>
+                            <button className='yes-button' onClick={handleDeleteGroup}>Oui</button>
+                            <button className='no-button' onClick={() => setDeleteAction(false)}>Non</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

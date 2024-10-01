@@ -79,3 +79,17 @@ export function updateUserResponse(response) {
     }
     return null;
 }
+
+export function updateGroupResponse(response) {
+
+    if (response.message === "Echec de validation.") {
+
+        if (response.data.name != null)
+            return response.data.name[0];
+
+        if (response.data.description != null)
+            return response.data.descripiton[0];
+
+    }
+    return null;
+}

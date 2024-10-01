@@ -1,0 +1,18 @@
+.main-wrapper {
+    max-height: 95vh;
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: #1A1A2E;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #fff !important;
+}
+
+.main-wrapper img {
+    width: 100%;
+    max-width: 400px;
+}

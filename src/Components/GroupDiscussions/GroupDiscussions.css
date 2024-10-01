@@ -3,16 +3,17 @@
   width: 100%;
   border-radius: 8px;
   padding: 8px 10px;
-  background: grey;
+  background: #1A1A2E;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  color: #222112 !important;
 }
 
 .group-discussions .group-header {
   width: 100%;
-  background-color: black;
+  background-color:  #238636;
   color: white;
   padding: 5px 10px;
   box-sizing: border-box;
@@ -135,4 +136,57 @@
 
 .discussion-item.user {
   place-self: end !important;
+}
+
+
+.discussions-items .files-name {
+  font-size: 12px;
+  background-color: #444444;
+  margin-top: 2px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.discussions-items .download-action {
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #238636;
+  color: white;
+  cursor: pointer;
+}
+
+.group-discussions .group-settings {
+  cursor: pointer;
+}
+
+.group-discussions .add-member {
+  max-width: 350px;
+  width: 100%;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  gap: 10px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+.group-discussions .add-member button {
+  margin-right: 6px;
+  font-family: nunito;
+  font-size: 14px;
+  border: none;
+  background-color: #238636;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.group-discussions .add-member input[type="email"] {
+  height: 30px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid grey;
+  outline-color: aqua;
+  font-family: nunito;
 }
