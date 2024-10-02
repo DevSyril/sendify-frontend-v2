@@ -6,10 +6,10 @@ import { images } from '../../assets/assets'
 
 export default function MainWrapper() {
 
-    const { isSelected, setIsSelected } = useContext(GroupContext)
+    const { isSelected, setIsSelected, groupId } = useContext(GroupContext)
 
     return (
-        isSelected === "groups" ?
+        isSelected === "groups" && groupId != ""?
             <GroupDiscussions /> :
             <div className="main-wrapper">
                 <img src={images.sendifyHome} />

@@ -1,22 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@font-face {
+  font-family: nunito;
+  src: url('./assets/fonts/static/Nunito-Regular.ttf');
+}
+
+@font-face {
+  font-family: nunito-black;
+  src: url('./assets/fonts/static/Nunito-Black.ttf');
+}
+
+@font-face {
+  font-family: nunito-bold;
+  src: url('./assets/fonts/static/Nunito-Bold.ttf');
+}
 
 body {
   margin: 0;
-  padding: 0;
-  display: flex;
-  place-items: center;
-  min-height: 100vh;
+  padding: 0 10px;
+  height: 100%;
+  max-height: 100vh !important;
+  overflow-y: hidden;
   font-family: nunito;
   font-size: 14px;
   background-color: #121212;
   color: #FFFF !important;
+  display: flex;
 }
 
 #root {
   margin: 0;
-  padding: 0 20px;
   width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: 100vh !important;
+  max-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +52,9 @@ body {
 }
 
 .w-100 {
-  width: 100% !important;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .flex-center {
@@ -55,4 +72,18 @@ body {
 
 .justify-content-center {
   justify-content: center;
+}
+
+.max-length {
+  max-width: 100% !important;
+}
+
+.small-title {
+  font-size: max(1.2vw, 12px) !important;
+}
+
+.txt-over {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

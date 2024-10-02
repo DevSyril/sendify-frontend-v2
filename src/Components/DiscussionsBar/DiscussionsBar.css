@@ -45,6 +45,7 @@
   gap: 10px;
   overflow-y: scroll;
   scrollbar-width: none;
+  height: 100%;
 }
 
 .discussions-bar .group {

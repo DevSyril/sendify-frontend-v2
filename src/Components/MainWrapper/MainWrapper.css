@@ -1,6 +1,7 @@
 .main-wrapper {
     max-height: 95vh;
     width: 100%;
+    max-width: 100% !important;
     border-radius: 8px;
     padding: 8px 10px;
     background: #1A1A2E;
@@ -10,6 +11,8 @@
     flex-direction: column;
     gap: 10px;
     color: #fff !important;
+    text-align: center;
+    box-sizing: border-box !important;
 }
 
 .main-wrapper img {

@@ -1,5 +1,7 @@
 .group.contact {
     cursor: default;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
 }
 
 .add-member-btn {

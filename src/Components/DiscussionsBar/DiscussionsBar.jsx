@@ -7,14 +7,17 @@ import { images } from '../../assets/assets'
 import axios from 'axios'
 import { API_URL } from '../../assets/Utils'
 import { GroupContext } from '../Context/GroupContext'
+import LeftSpinner from '../Spinner/LeftSpinner'
 
 export default function DiscussionsBar() {
 
     const [groupSelected, setGroupSelected] = useState("")
 
-    const { groupId, setGroupId } = useContext(GroupContext)
+    const { setGroupId, setGroupDatas, hideAftercick, setHideAfterClick } = useContext(GroupContext)
 
     const [toSearch, setToSearch] = useState("");
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const [data, setData] = useState([])
 
@@ -28,6 +31,7 @@ export default function DiscussionsBar() {
         })
             .then(function (response) {
                 setData(() => response.data.data)
+                setIsLoading(() => false)
             });
     }, []);
 
@@ -46,22 +50,32 @@ export default function DiscussionsBar() {
             </form>
             <hr />
             <div className='discussions flex flex-column'>
+                {isLoading && <LeftSpinner />}
                 {toSearch === "" ? data.map((item, index) => (
-                    <div key={index} onClick={() => setGroupId(() => item.id)}>
+                    <div key={index} onClick={() => {
+                        setGroupId(() => item.id)
+                        setHideAfterClick(() => true)
+                    }}>
                         <div className='group flex'
-                            id={groupSelected === item.name ? 'group-active' : ''} onClick={() => setGroupSelected(() => item.name)}
+                            id={groupSelected === item.name ? 'group-active' : ''} onClick={() => {
+                                setGroupSelected(() => item.name)
+                                setGroupDatas(() => item)
+                            }}
                         >
                             <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
                             <div className='group-text flex flex-column'>
-                                <span className='group-title'>{item.name}</span>
-                                <p className='p-0-m-0'>{item.description.length > 10 ? item.description.substring(0, 20) + "..." : item.description}</p>
+                                <span className='group-title small-text'>{item.name}</span>
+                                <p className='p-0-m-0 small-text'>{item.description.length > 10 ? item.description.substring(0, 20) + "..." : item.description}</p>
                             </div>
                         </div>
                     </div>
                 )) : searchData.map((item, index) => (
                     <div key={index} onClick={() => setGroupId(() => item.id)}>
                         <div className='group flex'
-                            id={groupSelected === item.name ? 'group-active' : ''} onClick={() => setGroupSelected(() => item.name)}
+                            id={groupSelected === item.name ? 'group-active' : ''} onClick={() => {
+                                setGroupSelected(() => item.name)
+                                setGroupDatas(() => item)
+                            }}
                         >
                             <img className='group-image' src={`${API_URL.groupsImageUrl}${item.profilePhoto}`} />
                             <div className='group-text flex flex-column'>

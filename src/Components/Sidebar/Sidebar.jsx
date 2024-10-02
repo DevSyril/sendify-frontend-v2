@@ -9,10 +9,10 @@ import GroupSettings from '../GroupSettings/GroupSettings'
 
 export default function Sidebar() {
 
-    const { isSelected, setIsSelected } = useContext(GroupContext)
+    const { isSelected, setIsSelected, hideAftercick, setHideAfterClick } = useContext(GroupContext)
 
     return (
-        <div className='sidebar'>
+        <div className='sidebar' id={hideAftercick ? 'hide-sidebar' : ''}>
             {isSelected === "groups" ? <DiscussionsBar /> : <></> }
             {isSelected === "contacts" ? <ContactBar /> : <></> }
             {isSelected === "addGroup" ? <CreateGroup /> : <></> }

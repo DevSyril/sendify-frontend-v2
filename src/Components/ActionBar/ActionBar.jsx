@@ -11,20 +11,7 @@ import { GroupContext } from '../Context/GroupContext'
 
 export default function ActionBar() {
 
-    const { isSelected, setIsSelected } = useContext(GroupContext)
-
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        axios({
-            method: 'get',
-            url: API_URL.currentUser,
-            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
-        })
-            .then(function (response) {
-                setData(() => response.data.data)
-            });
-    }, []);
+    const { isSelected, setIsSelected, currentUser, setGroupId, setAddMember, hideAftercick, setHideAfterClick } = useContext(GroupContext)
 
     return (
         <div className='action-bar'>
@@ -32,23 +19,48 @@ export default function ActionBar() {
                 <div className='logo-div'>
                     <FontAwesomeIcon className='logo' icon={faNfcDirectional} color='white' size='3x' />
                 </div>
-                <button className='action-button' id={isSelected === 'groups' ? 'button-active' : ''} onClick={() => setIsSelected(() => 'groups')}>
+                <button className='action-button' id={isSelected === 'groups' ? 'button-active' : ''} onClick={() => {
+                    setIsSelected(() => 'groups')
+                    setGroupId(() => '')
+                    setAddMember(() => false)
+                    setHideAfterClick(() => false);
+                }}>
                     <FontAwesomeIcon icon={faUserGroup} size='xl' color='white' />
                 </button>
-                <button className='action-button' id={isSelected === 'addGroup' ? 'button-active' : ''} onClick={() => setIsSelected(() => 'addGroup')}>
+                <button className='action-button' id={isSelected === 'addGroup' ? 'button-active' : ''} onClick={() => {
+                    setIsSelected(() => 'addGroup')
+                    setGroupId(() => '')
+                    setAddMember(() => false);
+                    setHideAfterClick(() => false);
+                }}>
                     <FontAwesomeIcon icon={faPlus} size='xl' color='white' />
                 </button>
-                <button className='action-button' id={isSelected === 'contacts' ? 'button-active' : ''} onClick={() => setIsSelected(() => 'contacts')}>
+                <button className='action-button' id={isSelected === 'contacts' ? 'button-active' : ''} onClick={() => {
+                    setIsSelected(() => 'contacts')
+                    setGroupId(() => '')
+                    setAddMember(() => false);
+                    setHideAfterClick(() => false);
+                }}>
                     <FontAwesomeIcon icon={faContactBook} size='xl' color='white' />
                 </button>
                 <hr />
-                <button className='action-button settings-button' id={isSelected === 'settings' ? 'button-active' : ''} onClick={() => setIsSelected(() => 'settings')}>
+                <button className='action-button settings-button' id={isSelected === 'settings' ? 'button-active' : ''} onClick={() => {
+                    setIsSelected(() => 'settings')
+                    setGroupId(() => '')
+                    setAddMember(() => false);
+                    setHideAfterClick(() => false);
+                }}>
                     <FontAwesomeIcon icon={faGear} size='xl' color='white' />
                 </button>
             </div>
             <div className='user-action'>
-                {data.map((item, index) => (
-                    <img className='user-image' key={index} src={`${API_URL.userImageUrl}${item.profilePhoto}`} title={item.profilePhoto} onClick={() => setIsSelected(() => 'profile')} />
+                {currentUser.map((item, index) => (
+                    <img className='user-image' key={index} src={`${API_URL.userImageUrl}${item.profilePhoto}`} title={item.profilePhoto} onClick={() => {
+                        setIsSelected(() => 'profile')
+                        setGroupId(() => '')
+                        setAddMember(() => false);
+                        setHideAfterClick(() => false);
+                    }} />
                 ))}
                 <button className='logout-button' onClick={() => setIsSelected(() => 'logout')}>
                     <FontAwesomeIcon icon={faDoorOpen} size='xl' />

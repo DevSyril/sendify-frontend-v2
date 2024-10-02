@@ -4,13 +4,14 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { MoonLoader, } from 'react-spinners'
+import { BeatLoader, MoonLoader, } from 'react-spinners'
 import { toast, ToastContainer } from 'react-toastify'
 import SubmitButton from '../../Components/Button/Submit/SubmitButton'
 import Input from '../../Components/Form/Input'
 import { login } from '../../Http/HttpRequest/axiosClient'
 import './Login.css'
 import { loginResponse } from '../../Http/HttpRequest/responseAnalyser'
+import { images } from '../../assets/assets'
 
 
 
@@ -65,11 +66,11 @@ export default function Login() {
     return (
         <>
             <ToastContainer stacked />
-            {isLoading && <div className='loader'><MoonLoader color="green" size={20} loading={true} /> En cours</div>}
+            {isLoading && <div className='loader'><BeatLoader color="green" size={20} loading={true} /> En cours</div>}
             <div className='login'>
                 <div className='left-zone'>
                     <div className=''>
-                        <img />
+                        <img src={images.sendifyHome} />
                     </div>
                 </div>
 

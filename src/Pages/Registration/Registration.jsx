@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Registration.css'
 import { toast, ToastContainer } from 'react-toastify'
-import { MoonLoader } from 'react-spinners'
+import { BeatLoader, MoonLoader } from 'react-spinners'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, useNavigate } from 'react-router-dom'
 import SubmitButton from '../../Components/Button/Submit/SubmitButton'
@@ -11,6 +11,7 @@ import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faCheckCircle, faLock } from '@fortawesome/free-solid-svg-icons'
 import { registerResponse } from '../../Http/HttpRequest/responseAnalyser'
 import { registration } from '../../Http/HttpRequest/axiosClient'
+import { images } from '../../assets/assets'
 
 export default function Registration() {
 
@@ -59,11 +60,11 @@ export default function Registration() {
     return (
         <>
             <ToastContainer stacked />
-            {isLoading && <div className='loader'><MoonLoader color="green" size={20} loading={true} /> En cours</div>}
+            {isLoading && <div className='loader'><BeatLoader color="green" size={20} loading={true} /> En cours</div>}
             <div className='login'>
                 <div className='left-zone'>
                     <div className=''>
-                        <img />
+                        <img src={images.sendifyHome} />
                     </div>
                 </div>
 
@@ -137,7 +138,7 @@ export default function Registration() {
                         <SubmitButton type={'submit'} text={'Se connecter'} />
                         <div className='link-container'>
                             <Link to={'/email-verification'} className='password-reset'>Mot de passe oulié ?</Link>
-                            <Link to={'/'} className='registration-link'>Se connecter</Link>
+                            <Link to={'/login'} className='registration-link'>Se connecter</Link>
                         </div>
                     </div>
                 </form>

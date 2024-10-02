@@ -1,6 +1,7 @@
 .group-discussions {
   max-height: 95vh;
   width: 100%;
+  max-width: 100% !important;
   border-radius: 8px;
   padding: 8px 10px;
   background: #1A1A2E;
@@ -9,6 +10,7 @@
   flex-direction: column;
   gap: 10px;
   color: #222112 !important;
+  box-sizing: border-box !important;
 }
 
 .group-discussions .group-header {
@@ -20,6 +22,7 @@
   border-radius: 6px;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box !important;
 }
 
 .group-discussions .group-header .group-profile {
@@ -32,6 +35,8 @@
 .group-discussions .group-header .group-profile-zone {
   align-items: center;
   gap: 10px;
+  width: 100%;
+  box-sizing: border-box !important;
 }
 
 .group-discussions .group-header .group-options {
@@ -48,6 +53,7 @@
   justify-content: space-between;
   gap: 10px;
   max-height: 40px;
+  box-sizing: border-box !important;
 }
 
 .group-discussions .message-sender input[type="text"] {
@@ -57,6 +63,7 @@
   border-radius: 8px;
   outline-color: aqua;
   padding: 0 10px;
+  box-sizing: border-box !important;
 }
 
 .group-discussions .message-sender button[type="submit"] {
@@ -107,13 +114,20 @@
 .group-discussions .discussions-items {
   width: 100%;
   height: 100%;
+  max-width: 100%;
   background-color: transparent;
   padding: 0 10px;
   box-sizing: border-box;
   overflow-y: scroll;
   scrollbar-width: none;
   gap: 10px;
-  justify-content: baseline;
+  /* place-content: flex-end; */
+  flex-direction: column-reverse;
+  box-sizing: border-box;
+}
+
+.group-discussions .discussions-items >:first-child {
+  margin-top: auto;
 }
 
 .group-discussions .discussions-items .discussion-item .file {
@@ -143,8 +157,11 @@
   font-size: 12px;
   background-color: #444444;
   margin-top: 2px;
-  padding: 4px 6px;
+  padding: 0px;
   border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
 }
 
 .discussions-items .download-action {
@@ -190,3 +207,24 @@
   outline-color: aqua;
   font-family: nunito;
 }
+
+
+
+/* Responsive design */
+
+@media (max-width: 900px) {
+  .group-discussions .discussions-items .discussion-item {
+    width: 150px;
+  }
+
+  .group-discussions .group-header .group-profile {
+    max-width: 30px !important;
+  }
+
+  .group-discussions .group-header .group-options {
+    margin: 0;
+    gap: 2px;
+  }
+
+}
+

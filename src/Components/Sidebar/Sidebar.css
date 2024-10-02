@@ -6,4 +6,14 @@
   border-radius: 8px;
   margin: 0;
   padding: 10px;
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 767px) {
+  .sidebar {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
 }

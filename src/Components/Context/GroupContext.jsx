@@ -8,13 +8,17 @@ const GroupContextProvider = (props) => {
 
     const [groupId, setGroupId] = useState("");
 
-    const [showGroup, setShowGroup] = useState([]);
-    
     const [addMember, setAddMember] = useState(false);
 
     const [isSelected, setIsSelected] = useState("groups");
 
     const [currentUser, setCurrentUser] = useState([]);
+
+    const [groupDatas, setGroupDatas] = useState([]);
+
+    const [groupMembers, setGroupMembers] = useState([]);
+
+    const [hideAftercick, setHideAfterClick] = useState(false);
 
     const contextValue = {
         groupId,
@@ -24,11 +28,15 @@ const GroupContextProvider = (props) => {
         currentUser,
         addMember,
         setAddMember,
-        showGroup,
-        setShowGroup,
+        groupDatas,
+        setGroupDatas,
+        groupMembers,
+        setGroupMembers,
+        hideAftercick, 
+        setHideAfterClick
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         axios({
             method: 'get',
             url: API_URL.currentUser,
@@ -37,7 +45,18 @@ const GroupContextProvider = (props) => {
             .then(function (response) {
                 setCurrentUser(() => response.data.data)
             });
-    }, []);
+
+            axios({
+                method: 'get',
+                url: `${API_URL.groupMembers}${groupDatas.id}`,
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+            })
+                .then(function (response) {
+                    setGroupMembers(() => response.data.data)
+                    console.log(response.data.data);
+                });
+    }, [groupDatas]);
+
 
 
     return (

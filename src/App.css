@@ -1,8 +1,80 @@
 .page-content {
   width: 100%;
+  max-width: 100% !important;
   height: 95vh;
   display: flex;
   border-radius: 6px;
   background-color: #121212;
   gap: 8px;
+  box-sizing: border-box !important;
+}
+
+.loader {
+  position: absolute;
+  z-index: 3;
+  top: 5%;
+  transform: translate(50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: darkcyan;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: max(1.2vw, 16px);
+}
+
+.small-text {
+  font-size: max(1vw, 12px) !important;
+}
+
+.bx-bb {
+  box-sizing: border-box !important;
+}
+
+
+/*Responsive Design*/
+
+@media (max-width: 1245px ) {
+  .group-description {
+    padding-top: 10px;
+    display: none !important;
+  }
+
+  .sidebar {
+    max-width: 30% !important;
+  }
+  
+}
+
+@media (max-width: 768px ) {
+
+  .main-wrapper {
+    display: none !important;
+  }
+
+  .group-description {
+    display: none !important;
+  }
+
+  #hide-sidebar {
+    display: none !important;
+  }
+
+  .max-100 {
+    max-width: 100px;
+  }
+  
+  .profile .profile-header .profile-photo {
+    max-width: 250px;
+    margin: auto;
+  }
+
+  .add-member {
+    max-width: 200px !important;
+    top: 10% !important;
+    left: 30% !important;
+  }
+
 }

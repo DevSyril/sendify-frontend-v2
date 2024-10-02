@@ -3,7 +3,7 @@ import './EmailVerification.css'
 import Input from '../../Components/Form/Input'
 import SubmitButton from '../../Components/Button/Submit/SubmitButton'
 import { toast, ToastContainer } from 'react-toastify'
-import { MoonLoader } from 'react-spinners'
+import { BeatLoader, MoonLoader } from 'react-spinners'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
@@ -52,7 +52,7 @@ export default function EmailVerification() {
     return (
         <div className='emailChecker'>
             <ToastContainer stacked />
-            {isLoading && <div className='loader'><MoonLoader color="green" size={20} loading={true} /> En cours</div>}
+            {isLoading && <div className='loader'><BeatLoader color="green" size={20} loading={true} /> En cours</div>}
             <form onSubmit={handleSubmit} className='loginForm'>
                 <div className='title-zone'>
                     <h2>Récupération de mot de passe</h2>

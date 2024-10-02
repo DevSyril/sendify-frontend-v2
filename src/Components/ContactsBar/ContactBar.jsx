@@ -7,13 +7,15 @@ import { faContactCard, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { GroupContext } from '../Context/GroupContext';
 import { toast } from 'react-toastify';
 import { addGroupMember } from '../../Http/HttpRequest/axiosClient';
+import LeftSpinner from '../Spinner/LeftSpinner';
 
 export default function ContactBar() {
 
     const [data, setData] = useState([])
     const [searchData, setSearchData] = useState([])
-    const { groupId, setGroupId, addMember, setAddMember } = useContext(GroupContext)
+    const { groupId, addMember, setAddMember, currentUser } = useContext(GroupContext)
     const [toSearch, setToSearch] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios({
@@ -23,6 +25,7 @@ export default function ContactBar() {
         })
             .then(function (response) {
                 setData(() => response.data.data)
+                setIsLoading(() => false)
             });
     }, []);
 
@@ -57,9 +60,22 @@ export default function ContactBar() {
             </form>
             <hr />
             <div className='discussions flex flex-column'>
-                {toSearch == "" ? data.map((item, index) => (
-                    <div key={index}>
-                        <div className=''>
+                {toSearch == "" ? (isLoading ? <LeftSpinner /> :
+                    data.map((item, index) => (
+                        <div key={index}>
+                            <div className=''>
+                                <div className='group flex contact'>
+                                    <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
+                                    <div className='group-text flex flex-column'>
+                                        <span className='group-title small-text'>{currentUser[0].username === item.username ? 'Vous-même' : item.username}</span>
+                                        <span className='p-0-m-0 small-text max-length'>{window.innerWidth < 450 ? item.email.substring(0, 12) + "..." : item.email}</span>
+                                    </div>
+                                </div>
+                                {addMember && currentUser[0].username != item.username && <button className='add-member-btn' onClick={() => handleAddMember(item.email)}>Ajouter</button>}
+                            </div>
+                        </div>
+                    ))) : searchData.map((item, index) => (
+                        <div key={index}>
                             <div className='group flex contact'>
                                 <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
                                 <div className='group-text flex flex-column'>
@@ -67,21 +83,9 @@ export default function ContactBar() {
                                     <p className='p-0-m-0'>{item.email}</p>
                                 </div>
                             </div>
-                            {addMember && <button className='add-member-btn' onClick={() => handleAddMember(item.email)}>Ajouter</button>}
+                            {addMember && currentUser[0].username != item.username && <button className='add-member-btn' onClick={() => handleAddMember(item.email)}>Ajouter</button>}
                         </div>
-                    </div>
-                )) : searchData.map((item, index) => (
-                    <div key={index}>
-                        <div className='group flex contact'>
-                            <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
-                            <div className='group-text flex flex-column'>
-                                <span className='group-title'>{item.username}</span>
-                                <p className='p-0-m-0'>{item.email}</p>
-                            </div>
-                        </div>
-                        {addMember && <button className='add-member-btn' onClick={() => handleAddMember(item.email)}>Ajouter</button>}
-                    </div>
-                ))}
+                    ))}
             </div>
         </div>
     )

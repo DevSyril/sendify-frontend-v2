@@ -10,10 +10,11 @@
     display: flex;
 }
 
-.loginForm {
+.emailChecker .loginForm {
     display: flex;
     justify-content: center;
     place-self: center;
+    max-width: 100%;
 }
 
 .emailChecker .loginForm {
