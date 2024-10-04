@@ -81,3 +81,7 @@
 .discussions-bar #group-active img {
   border-color: magenta;
 }
+
+.none-group {
+  place-self: center;
+}

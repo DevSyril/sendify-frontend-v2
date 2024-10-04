@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: !isAuthenticated() ? <Login /> :  <App />
+    element: isAuthenticated() ? <App /> : <Login />
   },
   {
     path: '/registration',

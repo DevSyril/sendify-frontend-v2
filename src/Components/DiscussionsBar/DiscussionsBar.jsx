@@ -22,6 +22,7 @@ export default function DiscussionsBar() {
     const [data, setData] = useState([])
 
     const [searchData, setSearchData] = useState([])
+    const [completed, setCompleted] = useState(false)
 
     useEffect(() => {
         axios({
@@ -32,7 +33,9 @@ export default function DiscussionsBar() {
             .then(function (response) {
                 setData(() => response.data.data)
                 setIsLoading(() => false)
+                setCompleted(() => true)
             });
+            
     }, []);
 
     return (
@@ -85,6 +88,7 @@ export default function DiscussionsBar() {
                         </div>
                     </div>
                 ))}
+                {data.length == 0 && searchData.length == 0 && completed && <div className="none-group">Aucun groupe disponible</div> }
             </div>
         </div>
     )

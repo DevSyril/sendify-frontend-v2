@@ -28,6 +28,9 @@
     color: #111;
     height: fit-content;
     gap: 10px;
+    max-width: 80% !important;
+    margin: auto;
+    place-self: center !important;
 }
 
 .otp-code-verification-title p, .otp-code-verification-title h2 {

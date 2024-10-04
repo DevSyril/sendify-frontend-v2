@@ -178,8 +178,11 @@ export default function GroupDiscussions() {
               <div className='flex flex-column bx-bb max-length'>
                 <div className='p-0-m-0 files-name txt-over'>{item.name}</div>
                 <div className='p-0-m-0 small-text txt-over'>Envoyé par {currentUser[0].username == item.sender ? "Moi-même" : item.sender} </div>
-                <div className='p-0-m-0 flex space-btw small-text txt-over'> <div className='txt-over'>{item.upload_date}</div> <FontAwesomeIcon className='download-action' icon={faDownload} onClick={() => handleDownload(item.id, item.name)} size='xl' /> </div>
+                <div className='p-0-m-0 flex space-btw w-100'>
+                  <p className='txt-over small-text p-0-m-0'>{item.upload_date}</p>
+                </div>
               </div>
+                  <FontAwesomeIcon className='download-action w-100 bx-bb' icon={faDownload} onClick={() => handleDownload(item.id, item.name)} size='xl' />
             </div>
           ))}
 

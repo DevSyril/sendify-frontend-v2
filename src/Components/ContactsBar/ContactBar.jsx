@@ -66,9 +66,9 @@ export default function ContactBar() {
                             <div className=''>
                                 <div className='group flex contact'>
                                     <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
-                                    <div className='group-text flex flex-column'>
-                                        <span className='group-title small-text'>{currentUser[0].username === item.username ? 'Vous-même' : item.username}</span>
-                                        <span className='p-0-m-0 small-text max-length'>{window.innerWidth < 450 ? item.email.substring(0, 12) + "..." : item.email}</span>
+                                    <div className='group-text flex flex-column mx-200'>
+                                        <p className='p-0-m-0 group-title small-text txt-over'>{currentUser[0].username === item.username ? 'Vous-même' : item.username}</p>
+                                        <p className='p-0-m-0 small-text max-length txt-over'>{window.innerWidth < 450 ? item.email.substring(0, 12) + "..." : item.email}</p>
                                     </div>
                                 </div>
                                 {addMember && currentUser[0].username != item.username && <button className='add-member-btn' onClick={() => handleAddMember(item.email)}>Ajouter</button>}
@@ -78,9 +78,9 @@ export default function ContactBar() {
                         <div key={index}>
                             <div className='group flex contact'>
                                 <img className='group-image' src={`${API_URL.userImageUrl}${item.profilePhoto}`} />
-                                <div className='group-text flex flex-column'>
-                                    <span className='group-title'>{item.username}</span>
-                                    <p className='p-0-m-0'>{item.email}</p>
+                                <div className='group-text flex flex-column mx-200'>
+                                    <p className='p-0-m-0 group-title small-text txt-over'>{item.username}</p>
+                                    <p className='p-0-m-0 small-text max-length txt-over'>{item.email}</p>
                                 </div>
                             </div>
                             {addMember && currentUser[0].username != item.username && <button className='add-member-btn' onClick={() => handleAddMember(item.email)}>Ajouter</button>}

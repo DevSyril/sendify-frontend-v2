@@ -36,15 +36,24 @@ const GroupContextProvider = (props) => {
         setHideAfterClick
     }
 
-    useEffect(() => { 
-        axios({
-            method: 'get',
-            url: API_URL.currentUser,
-            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
-        })
-            .then(function (response) {
-                setCurrentUser(() => response.data.data)
-            });
+    async function getCurrentUser() {
+
+        try {
+            const user = await axios.get(
+                API_URL.currentUser,
+                {headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }}
+            )
+            setCurrentUser(() => user.data.data)
+
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    useEffect(() => {
+
+        getCurrentUser();
 
             axios({
                 method: 'get',

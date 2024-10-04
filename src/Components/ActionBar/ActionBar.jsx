@@ -7,11 +7,18 @@ import { faNfcDirectional } from '@fortawesome/free-brands-svg-icons'
 import { API_URL } from '../../assets/Utils'
 import axios from 'axios'
 import { GroupContext } from '../Context/GroupContext'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function ActionBar() {
 
     const { isSelected, setIsSelected, currentUser, setGroupId, setAddMember, hideAftercick, setHideAfterClick } = useContext(GroupContext)
+    const navigate = useNavigate()
+
+    const logout = () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
 
     return (
         <div className='action-bar'>
@@ -62,7 +69,7 @@ export default function ActionBar() {
                         setHideAfterClick(() => false);
                     }} />
                 ))}
-                <button className='logout-button' onClick={() => setIsSelected(() => 'logout')}>
+                <button className='logout-button' onClick={logout}>
                     <FontAwesomeIcon icon={faDoorOpen} size='xl' />
                 </button>
             </div>

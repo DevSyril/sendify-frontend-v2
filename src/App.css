@@ -77,4 +77,8 @@
     left: 30% !important;
   }
 
+  .mx-200 {
+    max-width: 100px !important;
+  }
+
 }

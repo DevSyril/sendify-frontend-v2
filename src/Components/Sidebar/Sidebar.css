@@ -10,7 +10,7 @@
 }
 
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .sidebar {
     max-width: 100% !important;
     box-sizing: border-box !important;

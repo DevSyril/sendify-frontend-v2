@@ -10,7 +10,7 @@ export default function OtpCodeVerification() {
 
     const [otpCode, setOtpCode] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const navigate= useNavigate()
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
 
@@ -26,12 +26,19 @@ export default function OtpCodeVerification() {
 
             const response = await otpCheck(formData)
             console.log(otpCode);
-            
+
 
             if (response.success) {
 
                 setIsLoading(false)
                 localStorage.removeItem("email")
+
+                if (localStorage.getItem("token") != null)
+                    localStorage.removeItem("token")
+                
+                localStorage.setItem("token", response.data.token)
+
+                console.log(localStorage.getItem('token'))
 
                 navigate("/")
 
@@ -40,7 +47,7 @@ export default function OtpCodeVerification() {
                 toast.error(response.message)
             }
 
-        }else {
+        } else {
             toast.error('Veuillez saisir le code OTP')
         }
 
@@ -49,7 +56,7 @@ export default function OtpCodeVerification() {
 
     return (
         <div>
-            <ToastContainer stacked/>
+            <ToastContainer stacked />
             {isLoading && <div className='loader'><BeatLoader color="green" size={20} loading={true} /> En cours</div>}
             <div className='otp-code'>
                 <form className='otp-code-form' onSubmit={handleSubmit}>
@@ -77,7 +84,7 @@ export default function OtpCodeVerification() {
                             setOtpCode(otpCode + e.target.value[0]);
                         }}></input>
                     </div>
-                    
+
                     <SubmitButton type={'submit'} text={'Soumettre'} />
                 </form>
             </div>
